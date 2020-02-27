@@ -2,21 +2,15 @@
 
 const Service = require('egg').Service
 
-class loginService extends Service {
-  async login(params) {
+class LoginService extends Service {
+  async login() {
     const { app } = this
-    console.log(2323, params)
     try  {
-      let result = await app.mysql.get('user', {
-        columns: ['name', 'password', 'id']
-      })
-      const user = await app.mysql.query('select * from user','')
-      console.log(2323, user)
+      let result = await app.mysql.query('SELECT name,password,id FROM user')
       return result
     } catch (error) {
-      console.log(error)
-      return null
+      return error
     }
   }
 }
-module.exports = loginService;
+module.exports = LoginService

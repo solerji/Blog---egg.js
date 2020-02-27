@@ -2,23 +2,24 @@
 
 const Controller = require('egg').Controller;
 
-class timelineController extends Controller {
+class TimelineController extends Controller {
   async timelineId() {
     const { ctx } = this
-    this.logger.info('current user: %j', ctx);
-    let users = await ctx.service.timeline.getTimelineById(id)
-    if (users) {
+    try {
+      let timelines = await ctx.service.timeline.getTimelineById()
       ctx.body = {
-          status: 200,
-          data: timelines
+        code: 0,
+        status: 200,
+        list: timelines
       }
-     } else {
+    } catch (err) {
       ctx.body = {
-          status:500,
-          errMsg:'获取时间轴信息失败！'
+        status:500,
+        err: err,
+        errMsg:'服务器端错误!'
       }
     }
   }
 }
 
-module.exports = timelineController
+module.exports = TimelineController

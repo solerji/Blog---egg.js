@@ -5,16 +5,18 @@ const Controller = require('egg').Controller;
 class LoginController extends Controller {
   async index() {
     const { ctx } = this
-    let users = await ctx.service.login.login()
-    if (users) {
+    try {
+      let users = await ctx.service.login.login()
       ctx.body = {
-          status: 200,
-          data: users
+        code: 0,
+        status: 200,
+        data: users
       }
-     } else {
+     } catch(err){
       ctx.body = {
-          status:500,
-          errMsg:'登录失败'
+        status:500,
+        err: err,
+        errMsg:'服务器端错误!'
       }
     }
   }

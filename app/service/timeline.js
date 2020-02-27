@@ -2,14 +2,14 @@
 
 const Service = require('egg').Service
 
-class timelineService extends Service {
-  async getTimelineById(aid) {
-    this.ctx.logger.info('debug info from service', aid);
-    let timeline = await this.app.mysql.get('article', {
-      columns: ['aid', 'update_time', 'title'],
-      orders: [['update_time','desc']]
-    })
-    return timeline
+class TimelineService extends Service {
+  async getTimelineById() {
+    try  {
+      const timeline = await this.app.mysql.query('SELECT aid, update_time, title FROM article ORDER BY update_time DESC')
+      return timeline 
+    } catch (error) {
+      return error
+    }
   }
 }
-module.exports = timelineService
+module.exports = TimelineService
