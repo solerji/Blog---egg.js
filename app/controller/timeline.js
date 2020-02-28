@@ -1,6 +1,5 @@
-'use strict';
+'use strict'
 
-// import { format } from '../utils/dateFormat'
 const Controller = require('egg').Controller;
 const moment = require('moment')
 
