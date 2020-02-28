@@ -1,6 +1,7 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const Controller = require('egg').Controller
+const moment = require('moment')
 
 class TagController extends Controller {
   async getTagsByTitle() {
@@ -21,7 +22,8 @@ class TagController extends Controller {
     }
   }
 
-  async removeTag(title) {
+  // 删除标签
+  async removeTag() {
     const { ctx } = this
     let tags = await ctx.service.tag.removeTag()
     try {
@@ -39,7 +41,8 @@ class TagController extends Controller {
     }
   }
 
-  async addTag(title) {
+  // 增加标签
+  async addTag() {
     const { ctx } = this
     let tags = await ctx.service.tag.addTag()
     try {
@@ -57,6 +60,7 @@ class TagController extends Controller {
     }
   }
 
+  // 获取标签列表
   async getTagList() {
     const { ctx } = this
     let tags = await ctx.service.tag.getTagList()
@@ -75,10 +79,16 @@ class TagController extends Controller {
     }
   }
 
+  // 获取标签及时间轴
   async getTagTimeLine() {
     const { ctx } = this
     let title =  ctx.request.body.tagName
     let tags = await ctx.service.tag.getTagTimeLine(title)
+    tags.forEach(element => {
+      if (element.update_time) {
+        element.update_time =  moment(element.update_time).format('YYYY-MM-DD HH:mm:ss')
+      }
+    })
     try {
       ctx.body = {
         code: 0,

@@ -35,8 +35,7 @@ module.exports = appInfo => {
       // load into app, default is open
       app: true,
       // load into agent, default is close
-      agent: false,
-      dateStrings: true
+      agent: false
     }
   };
 

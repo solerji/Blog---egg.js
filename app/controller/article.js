@@ -1,6 +1,7 @@
 'use strict';
 
-const Controller = require('egg').Controller;
+const Controller = require('egg').Controller
+const moment = require('moment')
 
 class ArticleController extends Controller {
   async getArticleList() {
@@ -73,6 +74,7 @@ class ArticleController extends Controller {
       let users = await ctx.service.article.getArticleById(ctx.query.aid)
     try {
       let tags = await ctx.service.tag.getTagsByTitle(users[0].title)
+      users[0].update_time = moment(users[0].update_time).format('YYYY-MM-DD HH:mm:ss')
       ctx.body = {
         code: 0,
         status: 200,
