@@ -17,7 +17,6 @@ class TagService extends Service {
     const { app } = this
     try  {
       let result = await app.mysql.query('DELETE FROM article_tag WHERE article_title = ?', [title])
-      console.log(43, result)
       return result
     } catch (error) {
       return error
@@ -28,7 +27,6 @@ class TagService extends Service {
     const { app } = this
     try  {
       let result = await app.mysql.query('INSERT INTO article_tag(tag_name, article_title) VALUES (?,?)', tags)
-      console.log(4343, result)
       return result
     } catch (error) {
       return error

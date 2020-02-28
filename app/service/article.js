@@ -42,8 +42,14 @@ class articleService extends Service {
 
   async addArticle(article) {
     const { app } = this
+    let params = [
+      article.title,
+      article.author,
+      article.content,
+      article.showContent
+    ]
     try  {
-      let result = await app.mysql.query('INSERT INTO article(title, author, content, show_content) VALUES (?,?,?,?)')
+      let result = await app.mysql.query('INSERT INTO article(title, author, content, show_content) VALUES (?,?,?,?)', params)
       return result
     } catch (error) {
       return error
@@ -53,7 +59,7 @@ class articleService extends Service {
   async delArticleById(aid) {
     const { app } = this
     try  {
-      let result = await app.mysql.query('DELETE FROM article where aid = ?')
+      let result = await app.mysql.query('DELETE FROM article where aid = ?', [aid])
       return result
     } catch (error) {
       return error
@@ -63,8 +69,8 @@ class articleService extends Service {
   async searchArticleByTitle(title) {
     const { app } = this
     try  {
-      let result = await app.mysql.query('SELECT * FROM article WHERE title LIKE ?')
       let newTitle = '%' + title + '%'
+      let result = await app.mysql.query('SELECT * FROM article WHERE title LIKE ?',[newTitle])
       return result
     } catch (error) {
       return error
