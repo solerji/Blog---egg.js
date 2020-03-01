@@ -9,7 +9,7 @@ class articleService extends Service {
       let result = await app.mysql.query('SELECT aid, title, author, update_time, content, show_content FROM article WHERE aid = ?', [aid])
       return result
     } catch (error) {
-      return error 
+      throw error 
     }
   }
 
@@ -19,7 +19,7 @@ class articleService extends Service {
       let result = await app.mysql.query('SELECT aid, title, show_content FROM article')
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -36,7 +36,7 @@ class articleService extends Service {
       let result = await app.mysql.query('UPDATE article SET title = ?, author = ?, content = ? , show_content= ? WHERE aid = ?', params)
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -52,7 +52,7 @@ class articleService extends Service {
       let result = await app.mysql.query('INSERT INTO article(title, author, content, show_content) VALUES (?,?,?,?)', params)
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -62,7 +62,7 @@ class articleService extends Service {
       let result = await app.mysql.query('DELETE FROM article where aid = ?', [aid])
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -73,7 +73,7 @@ class articleService extends Service {
       let result = await app.mysql.query('SELECT * FROM article WHERE title LIKE ?',[newTitle])
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -84,7 +84,7 @@ class articleService extends Service {
       let result = await app.mysql.query('SELECT aid, title, show_content, content FROM article LIMIT ? , ?', show)
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -94,7 +94,7 @@ class articleService extends Service {
       let result = await app.mysql.query('SELECT count(aid) as count FROM article')
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 

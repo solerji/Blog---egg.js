@@ -9,7 +9,7 @@ class LoginService extends Service {
       let result = await app.mysql.query('SELECT name,password,id FROM user')
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 }

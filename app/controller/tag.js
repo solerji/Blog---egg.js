@@ -25,8 +25,8 @@ class TagController extends Controller {
   // 删除标签
   async removeTag() {
     const { ctx } = this
-    let tags = await ctx.service.tag.removeTag()
     try {
+      let tags = await ctx.service.tag.removeTag()
       ctx.body = {
         code: 0,
         status: 200,
@@ -44,8 +44,8 @@ class TagController extends Controller {
   // 增加标签
   async addTag() {
     const { ctx } = this
-    let tags = await ctx.service.tag.addTag()
     try {
+      let tags = await ctx.service.tag.addTag()
       ctx.body = {
         code: 0,
         status: 200,
@@ -63,8 +63,8 @@ class TagController extends Controller {
   // 获取标签列表
   async getTagList() {
     const { ctx } = this
-    let tags = await ctx.service.tag.getTagList()
     try {
+      let tags = await ctx.service.tag.getTagList()
       ctx.body = {
         code: 0,
         status: 200,
@@ -82,26 +82,26 @@ class TagController extends Controller {
   // 获取标签及时间轴
   async getTagTimeLine() {
     const { ctx } = this
-    let title =  ctx.request.body.tagName
-    let tags = await ctx.service.tag.getTagTimeLine(title)
-    tags.forEach(element => {
-      if (element.update_time) {
-        element.update_time =  moment(element.update_time).format('YYYY-MM-DD HH:mm:ss')
-      }
-    })
     try {
-      ctx.body = {
-        code: 0,
-        status: 200,
-        list: tags
+      let title =  ctx.request.body.tagName
+      let tags = await ctx.service.tag.getTagTimeLine(title)
+      tags.forEach(element => {
+        if (element.update_time) {
+          element.update_time =  moment(element.update_time).format('YYYY-MM-DD HH:mm:ss')
+        }
+      })
+        ctx.body = {
+          code: 0,
+          status: 200,
+          list: tags
+        }
+      } catch (err) {
+        ctx.body = {
+          status:500,
+          err: err,
+          errMsg:'服务器端错误!'
+        }
       }
-    } catch (err) {
-      ctx.body = {
-        status:500,
-        err: err,
-        errMsg:'服务器端错误!'
-      }
-    }
   }
 
   async getTimeLineList() {

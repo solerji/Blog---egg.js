@@ -9,7 +9,7 @@ class TagService extends Service {
       let result = await app.mysql.query('SELECT tag_name, article_title FROM article_tag WHERE article_title = ?', [title])
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -19,7 +19,7 @@ class TagService extends Service {
       let result = await app.mysql.query('DELETE FROM article_tag WHERE article_title = ?', [title])
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 
@@ -29,7 +29,7 @@ class TagService extends Service {
       let result = await app.mysql.query('INSERT INTO article_tag(tag_name, article_title) VALUES (?,?)', tags)
       return result
     } catch (error) {
-      return error
+      throw error
     }
   }
 

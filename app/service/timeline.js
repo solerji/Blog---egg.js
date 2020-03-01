@@ -8,7 +8,7 @@ class TimelineService extends Service {
       const timeline = await this.app.mysql.query('SELECT aid, update_time, title FROM article ORDER BY update_time DESC')
       return timeline 
     } catch (error) {
-      return error
+      throw error
     }
   }
 }
