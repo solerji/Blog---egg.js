@@ -40,7 +40,8 @@ module.exports = appInfo => {
   };
 
   config.security = {
-    csrf: false
+    csrf: false,
+    ignoreJSON: true
   };
 
   // use for cookie sign key, should change to your own and keep security
@@ -52,6 +53,10 @@ module.exports = appInfo => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+  };
+
+  config.jwt = {
+    secret: "89uii45@3"//自定义 token 的加密条件字符串
   };
 
   return {
