@@ -98,7 +98,7 @@ class ArticleController extends Controller {
   }
 
   // 更改文章
-  async getTagsByTitle() {
+  async updateArticle() {
     const { ctx } = this
     try {
       await ctx.service.tag.getTagsByTitle(ctx.request.body.title)
@@ -109,22 +109,9 @@ class ArticleController extends Controller {
         for (var i = 0; i <= tagItem.length; i++) {
           item = tagItem[i]
           var params = [item, ctx.request.body.title]
-          if (item !== undefined) {
+          if (params[0] !== undefined) {
             try {
               await ctx.service.tag.addTag(params)
-              try {
-                await ctx.service.article.updateArticleById(ctx.request.body)
-                 ctx.body = {
-                   code: 0,
-                   status: 200
-                   }
-              } catch (err) {
-                  ctx.body = {
-                    status:500,
-                    err: err,
-                    errMsg:'服务器端错误!'
-                  }
-                }
             } catch (err) {
               ctx.body = {
                 status:500,
@@ -133,6 +120,19 @@ class ArticleController extends Controller {
               }
             }
           }
+          try {
+            await ctx.service.article.updateArticleById(ctx.request.body)
+             ctx.body = {
+               code: 0,
+               status: 200
+               }
+          } catch (err) {
+              ctx.body = {
+                status:500,
+                err: err,
+                errMsg:'服务器端错误!'
+              }
+            }
         }
         } catch (err) {
           ctx.body = {
@@ -151,7 +151,7 @@ class ArticleController extends Controller {
   }
 
   // 删除文章
-  async getTagsByTitle() {
+  async delArticle() {
     const { ctx } = this
     try {
       let article = await ctx.service.article.getArticleById(ctx.request.body.aid)

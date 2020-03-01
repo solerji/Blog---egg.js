@@ -14,8 +14,8 @@ module.exports = app => {
   router.post('/api/addArticle', controller.article.addArticle)
   router.get('/api/articles', controller.article.getArticleList)
   router.get('/api/article', controller.article.getArticleById)
-  router.delete('/api/delArticle', controller.article.getTagsByTitle)
-  router.post('/api/updateArticle', controller.article.getTagsByTitle)
+  router.delete('/api/delArticle', controller.article.delArticle)
+  router.post('/api/updateArticle', controller.article.updateArticle)
   router.get('/api/someArticles', controller.article.searchArticleByTitle)
   // 标签相关接口
   router.get('/api/tags', controller.tag.getTagList)
